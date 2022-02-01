@@ -15,4 +15,6 @@ void add_7T_a(const int *old_6Z, int new_particle);
 
 void add_7T_s(const int *old_6Z, int new_particle);
 
+int check_7T_unique(const int *old_6Z_cluster, const int new_particle_id);
+
 #endif

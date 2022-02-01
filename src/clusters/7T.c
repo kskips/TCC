@@ -28,7 +28,9 @@ void Clusters_Get7T() {
                     int bond_counter = check_ring_bonds(new_5A_cluster, old_6Z_cluster);
                     if (bond_counter == 21 || bond_counter == 22 || bond_counter == 25) {
                         int new_particle_id = get_new_particle(new_5A_cluster, spindle_id);
+						if(check_7T_unique(old_6Z_cluster, new_particle_id) == 1){
                         check_7T_type(bond_counter, old_6Z_cluster, new_particle_id);
+						}
                     }
                 }
             }
@@ -102,6 +104,31 @@ void check_7T_type(int bond_counter, const int *old_6Z, int new_particle) {
         // detected assymetric type 2
         add_7T_a(old_6Z, new_particle);
     }
+}
+
+int check_7T_unique(const int *old_6Z_cluster, const int new_particle_id){
+	int nhits;
+    int old;
+	for(int i =0; i<n7T_a; ++i){
+		nhits = 0;
+		for(int j = 0; j < 7; ++j){
+			for(int k = 0; k < 7; ++k){
+                if(j == 6){
+                    old = new_particle_id;
+                }
+                else{
+                    old = old_6Z_cluster[j];
+                }
+				if(old == hc7T_a[i][k]){ 
+					nhits += 1;
+				}
+			}
+		}
+	if(nhits == 7){ //7T is a duplicate
+		return 0;
+	}
+	}
+	return 1; //7T is unique
 }
 
 void add_7T_a(const int *old_6Z, int new_particle) {
