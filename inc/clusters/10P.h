@@ -2,8 +2,6 @@
 #define TCC_10P_H
 
 void Clusters_Get10P();
-int check_unique10P(const int *old_9P, int new_particle); //Check that we don't already have the cluster stored
-void add_10P(const int *old_9P, int new_particle) ;
-int check_ring_bonds10P(const int *new_5A_cluster, const int *old_6Z_cluster);
-int crossover_part_10P(const int *old_9P_clust, int new_part);
+void add_10P(int bonded_id, int nbonded_id_2, int bonded_id_2, int nbonded_id, int spindle_id, int spindle_id_2, int final_part1, int final_part2, int final_part3, int new_particle) ;
+int check_unique10P(const int *old_clust, int new_particle, int new_clust_size);
 #endif
