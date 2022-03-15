@@ -24,55 +24,60 @@
 #include "10K.h"
 #include "10W.h"
 #include "10P.h"
+#include "10P2.h"
 #include "11A.h"
 #include "11B.h"
 #include "11C.h"
 #include "11W.h"
 #include "11F.h"
 #include "11P.h"
+#include "11P2.h"
 #include "12A.h"
 #include "12B.h"
 #include "12E.h"
+#include "12P.h"
+#include "12P2.h"
 #include "12K.h"
 #include "13B.h"
+#include "13P2.h"
 #include "HCP.h"
 #include "FCC.h"
 #include "BCC9.h"
 
 char* cluster_names[] = {"sp3a", "sp3b", "sp3c", "sp4a", "sp4b", "sp4c", "sp5a", "sp5b", "sp5c",
                          "6A", "6Z", "7K", "7T_a", "7T_s", "8P", "8A", "8B", "8K", "9A","9B", "9K","9P","10A",  "10B",
-                         "10K", "10W", "10P", "11A", "11B", "11C", "11E", "11F", "11W", "11P","12A", "12B", "12D",
-                         "12E", "12K", "13A", "13B", "13K", "FCC", "HCP", "BCC_9", "-1"};
+                         "10K", "10W", "10P", "10P2", "11A", "11B", "11C", "11E", "11F", "11W", "11P", "11P2","12A", "12B", "12D",
+                         "12E", "12K", "12P", "12P2", "13A", "13B", "13K", "13P2", "FCC", "HCP", "BCC_9", "-1"};
 
 int cluster_size[] = {3, 4, 5, 4, 5, 6, 5, 6, 7,
                       6, 6, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10,
-                      10, 10,10, 11, 11, 11, 11, 11, 11, 11, 12, 12, 12,
-                      12, 12, 13, 13, 13, 13, 13, 9, -1};
+                      10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 12, 12, 12,
+                      12, 12, 12, 12, 13, 13, 13, 13, 13, 13, 9, -1};
 
 int* do_cluster_list[] = {&dosp3a, &dosp3b, &dosp3c, &dosp4a, &dosp4b, &dosp4c, &dosp5a, &dosp5b, &dosp5c,
                           &do6A, &do6Z, &do7K, &do7T_a, &do7T_s, &do8P, &do8A, &do8B, &do8K, &do9A, &do9B, &do9K, &do9P, &do10A, &do10B,
-                          &do10K, &do10W, &do10P, &do11A, &do11B, &do11C, &do11E, &do11F, &do11W, &do11P, &do12A, &do12B, &do12D,
-                          &do12E, &do12K, &do13A, &do13B, &do13K, &doFCC, &doHCP, &doBCC9, NULL};
+                          &do10K, &do10W, &do10P, &do10P2, &do11A, &do11B, &do11C, &do11E, &do11F, &do11W, &do11P, &do11P2, &do12A, &do12B, &do12D,
+                          &do12E, &do12K, &do12P, &do12P2, &do13A, &do13B, &do13K, &do13P2, &doFCC, &doHCP, &doBCC9, NULL};
 
 int* num_cluster_list[] = {&nsp3a, &nsp3b, &nsp3c, &nsp4a, &nsp4b, &nsp4c, &nsp5a, &nsp5b, &nsp5c,
                            &n6A, &n6Z, &n7K, &n7T_a, &n7T_s, &n8P, &n8A, &n8B, &n8K, &n9A, &n9B, &n9K, &n9P, &n10A, &n10B,
-                           &n10K, &n10W, &n10P, &n11A, &n11B, &n11C, &n11E, &n11F, &n11W, &n11P, &n12A, &n12B, &n12D,
-                           &n12E, &n12K, &n13A, &n13B, &n13K, &nFCC, &nHCP, &nBCC_9, NULL};
+                           &n10K, &n10W, &n10P, &n10P2, &n11A, &n11B, &n11C, &n11E, &n11F, &n11W, &n11P, &n11P2, &n12A, &n12B, &n12D,
+                           &n12E, &n12K, &n12P, &n12P2, &n13A, &n13B, &n13K, &n13P2, &nFCC, &nHCP, &nBCC_9, NULL};
 
 char** raw_list[] = {&ssp3a, &ssp3b, &ssp3c, &ssp4a, &ssp4b, &ssp4c, &ssp5a, &ssp5b, &ssp5c,
                      &s6A, &s6Z, &s7K, &s7T_a, &s7T_s, &s8P, &s8A, &s8B, &s8K, &s9A, &s9B, &s9K, &s9P, &s10A, &s10B,
-                     &s10K, &s10W, &s10P, &s11A, &s11B, &s11C, &s11E, &s11F, &s11W, &s11P, &s12A, &s12B, &s12D,
-                     &s12E, &s12K, &s13A, &s13B, &s13K, &sFCC, &sHCP, &sBCC_9, NULL};
+                     &s10K, &s10W, &s10P, &s10P2, &s11A, &s11B, &s11C, &s11E, &s11F, &s11W, &s11P, &s11P2, &s12A, &s12B, &s12D,
+                     &s12E, &s12K, &s12P, &s12P2, &s13A, &s13B, &s13K, &s13P2, &sFCC, &sHCP, &sBCC_9, NULL};
 
 int*** cluster_list[] = {&hcsp3a, &hcsp3b, &hcsp3c, &hcsp4a, &hcsp4b, &hcsp4c, &hcsp5a, &hcsp5b, &hcsp5c,
                          &hc6A, &hc6Z, &hc7K, &hc7T_a, &hc7T_s, &hc8P, &hc8A, &hc8B, &hc8K, &hc9A, &hc9B, &hc9K, &hc9P, &hc10A, &hc10B,
-                         &hc10K, &hc10W, &hc10P, &hc11A, &hc11B, &hc11C, &hc11E, &hc11F, &hc11W, &hc11P, &hc12A, &hc12B, &hc12D,
-                         &hc12E, &hc12K, &hc13A, &hc13B, &hc13K, &hcFCC, &hcHCP, &hcBCC_9, NULL};
+                         &hc10K, &hc10W, &hc10P, &hc10P2, &hc11A, &hc11B, &hc11C, &hc11E, &hc11F, &hc11W, &hc11P, &hc11P2, &hc12A, &hc12B, &hc12D,
+                         &hc12E, &hc12K, &hc12P, &hc12P2, &hc13A, &hc13B, &hc13K, &hc13P2, &hcFCC, &hcHCP, &hcBCC_9, NULL};
 
 int* cluster_list_width[] = {&msp3a, &msp3b, &msp3c, &msp4a, &msp4b, &msp4c, &msp5a, &msp5b, &msp5c,
                              &m6A, &m6Z, &m7K, &m7T_a, &m7T_s, &m8P, &m8A, &m8B, &m8K, &m9A, &m9B, &m9P, &m9K, &m10A, &m10B,
-                             &m10K, &m10W, &m10P, &m11A, &m11B, &m11C, &m11E, &m11F, &m11W, &m11P, &m12A, &m12B, &m12D,
-                             &m12E, &m12K, &m13A, &m13B, &m13K, &mFCC, &mHCP, &mBCC_9, NULL};
+                             &m10K, &m10W, &m10P, &m10P2, &m11A, &m11B, &m11C, &m11E, &m11F, &m11W, &m11P, &m11P2, &m12A, &m12B, &m12D,
+                             &m12E, &m12K, &m12P, &m12P2, &m13A, &m13B, &m13K, &m13P2, &mFCC, &mHCP, &mBCC_9, NULL};
 
 
 int main(int argc, char **argv) {
@@ -116,17 +121,22 @@ int main(int argc, char **argv) {
         if (do10K == 1) Clusters_Get10K();
         if (do10W == 1) Clusters_Get10W();
         if (do10P == 1) Clusters_Get10P();
+        if (do10P2 == 1) Clusters_Get10P2();
         if (do11A == 1) Clusters_Get11A();
         if (do11B == 1) Clusters_Get11B();
         if (do11C == 1) Clusters_Get11C();
         if (do11F == 1) Clusters_Get11F_13K();
         if (do11W == 1) Clusters_Get11W();
         if (do11P == 1) Clusters_Get11P();
+        if (do11P2 == 1) Clusters_Get11P2();
         if (do12A == 1) Clusters_Get12A();
         if (do12B == 1) Clusters_Get12B_13A();
         if (do12E == 1) Clusters_Get12E();
         if (do12K == 1) Clusters_Get12K();
+        if (do12P == 1) Clusters_Get12P();
+        if (do12P2 == 1) Clusters_Get12P2();
         if (do13B == 1) Clusters_Get13B();
+        if (do13P2 == 1) Clusters_Get13P2();
         if (doFCC == 1) Clusters_GetFCC();
         if (doHCP == 1) Clusters_GetHCP();
         if (doBCC9 == 1) Clusters_GetBCC_9();
