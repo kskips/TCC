@@ -20,7 +20,6 @@
 */
 void Clusters_Get7T() {
     for (int old_6Z_id = 0; old_6Z_id < n6Z; ++old_6Z_id) {
-        
         int *old_6Z_cluster = hc6Z[old_6Z_id];
         int spindle_id_2;
         int nbonded_id_2;
@@ -30,17 +29,17 @@ void Clusters_Get7T() {
         int bonded_id; 
         int new_6Z_cluster[6];
         for (int spindle_pointer = 0; spindle_pointer < 2; ++spindle_pointer) {
-            int spindle_id_2 = old_6Z_cluster[2*spindle_pointer+ 4];
+            int spindle_id = old_6Z_cluster[spindle_pointer+ 4];
             if (spindle_pointer == 0){
-                spindle_id = old_6Z_cluster[5];
+                spindle_id_2 = old_6Z_cluster[5];
             }
             else{
-                spindle_id = old_6Z_cluster[4];
+                spindle_id_2 = old_6Z_cluster[4];
             }
             for (int new_5A_pointer = 0; new_5A_pointer < nmem_sp3c[spindle_id]; ++new_5A_pointer) {
                 int new_5A_id = mem_sp3c[spindle_id][new_5A_pointer];
                 int *new_5A_cluster = hcsp3c[new_5A_id];
-                if (is_particle_spindle_of_5A(spindle_id_2, new_5A_cluster) == 1) {
+                if (is_particle_spindle_of_5A(spindle_id, new_5A_cluster) == 1) {
                     for (int bonded_pointer = 0; bonded_pointer <2; ++bonded_pointer){
                         int bonded_id = old_6Z_cluster[bonded_pointer*2];
                         if (bonded_pointer == 0){
@@ -51,18 +50,19 @@ void Clusters_Get7T() {
                         }
                     if(is_particle_ring_of_5A(bonded_id,new_5A_cluster) == 1){
                             for (int nbonded_pointer = 0; nbonded_pointer <2; ++nbonded_pointer){
-                                int nbonded_id = old_6Z_cluster[nbonded_pointer*2+1];
+                                int nbonded_id_2 = old_6Z_cluster[nbonded_pointer*2+1];
                                 if (nbonded_pointer == 0){
-                                    nbonded_id_2 = old_6Z_cluster[3];
+                                    nbonded_id = old_6Z_cluster[3];
                                 }
                                 else{
-                                    nbonded_id_2 = old_6Z_cluster[1];
+                                    nbonded_id = old_6Z_cluster[1];
                                 }
                                 if(is_particle_ring_of_5A(nbonded_id,new_5A_cluster) == 1){
-                                    if(is_particle_ring_of_5A(spindle_id,new_5A_cluster) == 1){
+                                    if(is_particle_ring_of_5A(spindle_id_2,new_5A_cluster) == 1){
+                                        
                                         int bond_counter = check_ring_bonds(new_5A_cluster, old_6Z_cluster);
                                         if (bond_counter == 21 || bond_counter == 22 || bond_counter == 25) {
-                                            int new_particle_id = get_new_particle(new_5A_cluster, spindle_id_2);
+                                            int new_particle_id = get_new_particle(new_5A_cluster, spindle_id);
                                             new_6Z_cluster[0] = bonded_id;
                                             new_6Z_cluster[1] = nbonded_id_2;
                                             new_6Z_cluster[2] = bonded_id_2;
