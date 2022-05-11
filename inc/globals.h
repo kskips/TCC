@@ -92,65 +92,65 @@ double cell_len_x, cell_len_y, cell_len_z;
 int dosp3, dosp3a, dosp3b, dosp3c;
 int dosp4, dosp4a, dosp4b, dosp4c;
 int dosp5, dosp5a, dosp5b, dosp5c;
-int do6A, do6Z, do7K, do7T_a, do7T_s;
-int do8P, do8A, do8B, do8K;
-int do9A, do9B, do9K, do9P;
-int do10A, do10B, do10K, do10W, do10P, do10P2;
-int do11A, do11B, do11C, do11E, do11F, do11W, do11P, do11P2;
-int do12A, do12B, do12D, do12E, do12K, do12P, do12P2;
-int do13A, do13B, do13K, do13P2;
+int do6A, do6Z, do7K, do7T_a, do7T_s, do7PAB;
+int do8PAA, do8A, do8B, do8K, do8PAB, do8PBB;
+int do9A, do9B, do9K, do9PAA, do9PAB, do9PBB;
+int do10A, do10B, do10K, do10W, do10PAA, do10PAB, do10PBB;
+int do11A, do11B, do11C, do11E, do11F, do11W, do11PAA, do11PAB, do11PBB;
+int do12A, do12B, do12D, do12E, do12K, do12PAA, do12PAB, do12PBB;
+int do13A, do13B, do13K, do13PAA, do13PAB, do13PBB;
 int doFCC, doHCP, doBCC9;
 
 // number of clusters of particlar type in current frame
 int nsp3a, nsp3b, nsp3c;
 int nsp4a, nsp4b, nsp4c;
 int nsp5a, nsp5b, nsp5c;
-int n6A, n6Z, n7K, n7T_a, n7T_s;
-int n8P, n8A, n8B, n8K;
-int n9A, n9B, n9K,n9P;
-int n10A, n10B, n10K, n10W,n10P, n10P2;
-int n11A, n11B, n11C, n11E, n11F, n11W,n11P, n11P2;
-int n12A, n12B, n12D, n12E, n12K, n12P, n12P2;
-int n13A, n13B, n13K, n13P2;
+int n6A, n6Z, n7K, n7T_a, n7T_s, n7PAB;
+int n8PAA, n8A, n8B, n8K, n8PBB, n8PAB;
+int n9A, n9B, n9K, n9PAA, n9PBB, n9PAB;
+int n10A, n10B, n10K, n10W,n10PAA, n10PAB, n10PBB;
+int n11A, n11B, n11C, n11E, n11F, n11W,n11PAA, n11PAB, n11PBB;
+int n12A, n12B, n12D, n12E, n12K, n12PAA, n12PBB, n12PAB;
+int n13A, n13B, n13K, n13PBB, n13PAB, n13PAA;
 int nFCC, nHCP, nBCC_9;
 
 // max size of cluster storage arrays in dimension i
 int msp3a, msp3b, msp3c;
 int msp4a, msp4b, msp4c;
 int msp5a, msp5b, msp5c;
-int m6A, m6Z, m7K, m7T_a, m7T_s;
-int m8P, m8A, m8B, m8K;
-int m9A, m9B, m9K, m9P;
-int m10A, m10B, m10K, m10W, m10P, m10P2;
-int m11A, m11B, m11C, m11E, m11F, m11W, m11P, m11P2;
-int m12A, m12B, m12D, m12E, m12K, m12P, m12P2;
-int m13A, m13B, m13K, m13P2;
+int m6A, m6Z, m7K, m7T_a, m7T_s, m7PAB;
+int m8PAA, m8A, m8B, m8K, m8PBB, m8PAB;
+int m9A, m9B, m9K, m9PAA, m9PBB, m9PAB;
+int m10A, m10B, m10K, m10W, m10PAA, m10PAB, m10PBB;
+int m11A, m11B, m11C, m11E, m11F, m11W, m11PAA, m11PAB, m11PBB;
+int m12A, m12B, m12D, m12E, m12K, m12PAA, m12PBB, m12PAB;
+int m13A, m13B, m13K, m13PBB, m13PAB, m13PAA;
 int mFCC, mHCP, mBCC_9;
 
 // cluster storage arrays (index i denotes number/identifier of cluster, j lists particles in cluster)
 int **hcsp3a, **hcsp3b, **hcsp3c;
 int **hcsp4a, **hcsp4b, **hcsp4c;
 int **hcsp5a, **hcsp5b, **hcsp5c;
-int **hc6A, **hc6Z, **hc7K, **hc7T_a, **hc7T_s;
-int **hc8P, **hc8A, **hc8B, **hc8K;
-int **hc9A, **hc9B, **hc9K, **hc9P;
-int **hc10A, **hc10B, **hc10K, **hc10W, **hc10P, **hc10P2;
-int **hc11A, **hc11B, **hc11C, **hc11E, **hc11F, **hc11W, **hc11P, **hc11P2;
-int **hc12A, **hc12B, **hc12D, **hc12E, **hc12K, **hc12P, **hc12P2;
-int **hc13A, **hc13B, **hc13K, **hc13P2;
+int **hc6A, **hc6Z, **hc7K, **hc7T_a, **hc7T_s, **hc7PAB;
+int **hc8PAA, **hc8A, **hc8B, **hc8K, **hc8PBB, **hc8PAB;
+int **hc9A, **hc9B, **hc9K, **hc9PAA, **hc9PBB, **hc9PAB;
+int **hc10A, **hc10B, **hc10K, **hc10W, **hc10PAA, **hc10PAB, **hc10PBB;
+int **hc11A, **hc11B, **hc11C, **hc11E, **hc11F, **hc11W, **hc11PAA, **hc11PAB, **hc11PBB;
+int **hc12A, **hc12B, **hc12D, **hc12E, **hc12K, **hc12PAA, **hc12PBB, **hc12PAB;
+int **hc13A, **hc13B, **hc13K, **hc13PBB, **hc13PAB, **hc13PAA;
 int **hcFCC, **hcHCP, **hcBCC_9;
 
 // Raw lists of particle identity, output to RAW_clust files and reset each frame
 char *ssp3a, *ssp3b, *ssp3c;
 char *ssp4a, *ssp4b, *ssp4c;
 char *ssp5a, *ssp5b, *ssp5c;
-char *s6A, *s6Z, *s7K, *s7T_a, *s7T_s;
-char *s8P, *s8A, *s8B, *s8K;
-char *s9A, *s9B, *s9K,*s9P;
-char *s10A, *s10B, *s10K, *s10W, *s10P, *s10P2;
-char *s11A, *s11B, *s11C, *s11E, *s11F, *s11W, *s11P, *s11P2;
-char *s12A, *s12B, *s12D, *s12E, *s12K, *s12P, *s12P2;
-char *s13A, *s13B, *s13K, *s13P2;
+char *s6A, *s6Z, *s7K, *s7T_a, *s7T_s, *s7PAB;
+char *s8PAA, *s8A, *s8B, *s8K, *s8PBB, *s8PAB;
+char *s9A, *s9B, *s9K,*s9PAA, *s9PBB, *s9PAB;
+char *s10A, *s10B, *s10K, *s10W, *s10PAA, *s10PAB, *s10PBB;
+char *s11A, *s11B, *s11C, *s11E, *s11F, *s11W, *s11PAA, *s11PAB, *s11PBB;
+char *s12A, *s12B, *s12D, *s12E, *s12K, *s12PAA, *s12PBB, *s12PAB;
+char *s13A, *s13B, *s13K, *s13PBB, *s13PAB, *s13PAA;
 char *sFCC, *sHCP, *sBCC_9;
 
 // mem lists the clusters of that type each particle is in, index i is the particle index, j is the cluster id
