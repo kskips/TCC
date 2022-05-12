@@ -13,7 +13,7 @@
 void Clusters_Get8PAA() {
     for (int old_7T_id = 0; old_7T_id < n7T_a; ++old_7T_id) {
     int *old_7T_cluster = hc7T_a[old_7T_id];
-    int clust_6Z[2]; 
+    int clust_6Z[7]; 
     clust_6Z[0]= old_7T_cluster[2];
     clust_6Z[1] = old_7T_cluster[3];
     clust_6Z[2]= old_7T_cluster[0];

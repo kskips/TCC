@@ -17,7 +17,7 @@
 void Clusters_Get8PAB() {
 for (int old_7T_id = 0; old_7T_id < n7T_a; ++old_7T_id) {
     int *old_7T_cluster = hc7T_a[old_7T_id];
-    int clust_7T[6][2]; 
+    int clust_7T[7][2]; 
     clust_7T[0][0] = old_7T_cluster[2];
     clust_7T[1][0] = old_7T_cluster[3];
     clust_7T[2][0] = old_7T_cluster[0];
