@@ -255,6 +255,7 @@ void analyse_cluster_dependencies() {
     if(do13K == 1) dosp3c = dosp4c = do11F = 1;
     if(do13B == 1) dosp5c = 1;
     if(do13A == 1) do12B = 1;
+    if(do12S == 1) do11S = 1;
     if(do12PAA == 1) do11PAA = 1;
     if(do12PBB == 1) do11PAB = do12PAA = do12PAB = 1;
     if(do12PAB == 1) do12PAA = do11PAA = dosp3a = 1;
@@ -272,6 +273,8 @@ void analyse_cluster_dependencies() {
     if(do11PAA ==1) do10PAA = 1;
     if(do11PBB ==1) do10PAB = do11PAB = 1;
     if(do11PAB ==1) do10PAA = do11PAA = dosp3a = 1;
+    if(do11S ==1) dosp5c = 1;
+    if(do11SB ==1) do9B = dosp3c = 1;
     if(do10W == 1) dosp5b = 1;
     if(do10K == 1) do9K = 1;
     if(do10B == 1) dosp5c = do9B = 1;
@@ -279,12 +282,14 @@ void analyse_cluster_dependencies() {
     if(do10PAA == 1) do9PAA = 1;
     if(do10PBB == 1) do10PAA = do9PAB = 1;
     if(do10PAB ==1) do9PAA = do10PAA = dosp3a = 1;
+    if(do10S ==1) dosp5c = dosp3c = 1;
     if(do9K == 1) dosp4c = 1;
     if(do9B == 1) dosp5c = 1;
     if(do9A ==1) dosp4b = 1;
     if(do9PAA ==1) do8PAA = 1;
     if(do9PBB ==1) do8PAB = 1;
     if(do9PAB ==1) do8PAA = do9PAA = dosp3a = 1;
+    if(do9S ==1) do8B = 1;
     if(do8PAA == 1) do7T_a = 1;
     if(do8PBB == 1) do7PAB = 1;
     if(do8PAB == 1) do7T_a = do8PAA = dosp3a = 1;
