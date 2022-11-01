@@ -3,7 +3,7 @@
 #include "11SB.h"
 #include "11SB.h"
 
-//!  A 11SB is a made of three intersectiing 9B clusters
+//!  A 11SB is a made of a 9B cluster and two 5A clusters
 /*!
 * One spindle of each 9B is a ring of the other 9B
 * There is one common ring particle
@@ -21,9 +21,6 @@ void Clusters_Get11SB() {
             else if (first_5A_cluster[4] == old_9B_cluster[8]){
                 spindle1 = first_5A_cluster[3];
             }
-            //printf("5A1 %i %i %i %i %i \n", first_5A_cluster[0], first_5A_cluster[1], first_5A_cluster[2], first_5A_cluster[3], first_5A_cluster[4]);
-            //printf("9B %i %i %i %i %i %i %i %i %i \n", old_9B_cluster[0], old_9B_cluster[1], old_9B_cluster[2], old_9B_cluster[3],
-            //old_9B_cluster[4],old_9B_cluster[5],old_9B_cluster[6],old_9B_cluster[7], old_9B_cluster[8]);
             if( first_5A_cluster[0] == old_9B_cluster[2] || first_5A_cluster[0] == old_9B_cluster[3] || first_5A_cluster[0] == old_9B_cluster[7]){
                 if( first_5A_cluster[1] == old_9B_cluster[2] || first_5A_cluster[1] == old_9B_cluster[3] || first_5A_cluster[1] == old_9B_cluster[7]){
                     if( first_5A_cluster[2] == old_9B_cluster[2] || first_5A_cluster[2] == old_9B_cluster[3] || first_5A_cluster[2] == old_9B_cluster[7]){
@@ -41,7 +38,6 @@ void Clusters_Get11SB() {
                                         if( second_5A_cluster[1] == old_9B_cluster[0] || second_5A_cluster[1] == old_9B_cluster[1] || second_5A_cluster[1] == old_9B_cluster[6]){
                                             if( second_5A_cluster[2] == old_9B_cluster[0] || second_5A_cluster[2] == old_9B_cluster[1] || second_5A_cluster[2] == old_9B_cluster[6]){
                                                 if(check_unique_11SB(old_9B_cluster, spindle1, spindle2)== 0){
-                                                    printf("boop\n");
                                                     add_11SB(old_9B_cluster, spindle1, spindle2);
                                                     }
                                                 }
