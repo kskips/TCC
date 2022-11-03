@@ -10,75 +10,89 @@
 
 
 void Clusters_Get8O() {
-    int final_part1;
-    int final_part2;
-    int count1;
-    int count2;
+    int *array = malloc(8 * sizeof(int));
     for (int first_6A_id = 0; first_6A_id < nsp4c; ++first_6A_id) {
         int *first_6A_cluster = hcsp4c[first_6A_id];
         for(int first_4A_id = 0; first_4A_id < nsp3b; ++first_4A_id){
             int *first_4A_cluster = hcsp3b[first_4A_id];
-            for(int second_4A_id = 0; second_4A_id < nsp3b; ++second_4A_id){
+            for(int second_4A_id = first_4A_id; second_4A_id < nsp3b; ++second_4A_id){
                 int *second_4A_cluster = hcsp3b[second_4A_id];
                 if(overlap_4A_4A(first_4A_cluster, second_4A_cluster) == 1){
-                    if(overlap_6A_4A(first_6A_cluster, first_4A_cluster) == 3){
-                        if(overlap_6A_4A(first_6A_cluster, second_4A_cluster) == 3){
-                            for(int i = 0; i < 4; ++i){
-                                count1 = 0;
-                                for(int j = 0; j < 6; ++j){
-                                    if(first_6A_cluster[j] == first_4A_cluster[i]){
-                                        count1 +=1;
-                                    }
-                                }
-                                if(count1 == 0){
-                                    final_part1 = first_4A_cluster[i];
-                                }
-                            }
-
-                            for(int k = 0; k < 4; ++k){
-                                count2 = 0;
-                                for(int l = 0; l < 6; ++l){
-                                    if(first_6A_cluster[l] == second_4A_cluster[k]){
-                                        count2 +=1;
-                                    }
-                                }
-                                if(count2 == 0){
-                                    final_part2 = second_4A_cluster[k];
-                                }
-                            }
-                            if(check_unique_8O(first_6A_cluster, final_part1, final_part2) == 0){
-                                add_8O(first_6A_cluster, final_part1, final_part2);
-                            }
+                    if(overlap_6A_4A_8O(&array, first_6A_cluster, first_4A_cluster,second_4A_cluster) == 1){
+                        if(check_unique_8O(&array) == 0){
+                            //printf("%i %i %i %i %i %i %i %i\n", array[0], array[1], array[2], array[3],array[4], array[5], array[6], array[7]);
+                            printf("%i %i \n", first_6A_id,n8O);
+                            add_8O(&array);
                         }
                     }
                 }
             }
         }
     }
+}
+
+int overlap_6A_4A_8O(int **array,const int *clust_6A,const int *clust_4A1,const int *clust_4A2){
+    int u = 0;
+    int v;
+    for(int i = 0; i < 4; ++i){
+        for(int j = 0; j < 4; ++j){
+            if(clust_4A1[i] == clust_4A2[j]){
+                u += 1;
+            }
+        }    
     }
+    if(u == 0){
+        u = 0;
+        for(int i = 0; i < 4; ++i){
+            v = 0;
+            for(int j = 0; j < 6; ++j){
+                if(clust_4A1[i] == clust_6A[j]){
+                    (*array)[u] = clust_4A1[i];
+                    u += 1;
+                    v += 1;
+                }
+            }    
+            if(v == 0){
+                (*array)[6] = clust_4A1[i];
+            }
+        }
+        if(u == 3){
+            u = 0;
+            for(int i = 0; i < 4; ++i){
+                v = 0;
+                for(int j = 0; j < 6; ++j){
+                    if(clust_4A2[i] == clust_6A[j]){
+                        (*array)[u+3] = clust_4A2[i];
+                        u += 1;
+                        v += 1;
+                    }
+                }
+                if(v == 0){
+                (*array)[7] = clust_4A2[i];
+                }    
+            }
+        }
+        if(u == 3){
+            return 1;
+        }
+    }
+    return 0;
+}
 
 
-
-int check_unique_8O(const int *old_6A, int final_part1, int final_part2){
+int check_unique_8O(int **array){
     int u;
     for (int old_8O_id = 0; old_8O_id < n8O; ++old_8O_id) {
         u = 0;
         for (int r = 0; r < 8; ++r){
-            for (int q = 0; q < 6; ++q){
-                if(hc8O[old_8O_id][r] == old_6A[q]){
+            for (int q = 0; q < 8; ++q){
+                if(hc8O[old_8O_id][r] == (*array)[q]){
                     u += 1;
                 }
             }
 
         }
-        for (int i = 0; i < 8; ++i){
-        if(hc8O[old_8O_id][i] == final_part1){
-            u += 1;
-        }
-        if(hc8O[old_8O_id][i] == final_part2){
-            u += 1;
-        }
-    }
+    
     if(u == 8){
         return 1;           
     }
@@ -86,21 +100,20 @@ int check_unique_8O(const int *old_6A, int final_part1, int final_part2){
     return 0;
 }
 
-void add_8O(const int *old_6A, int final_part1, int final_part2) {
+void add_8O(int **array) {
     int clusSize = 8;
-    //printf("new_particle %i\n", new_particle);
     if (n8O == m8O) {
         hc8O = resize_2D_int(hc8O, m8O, m8O + incrStatic, clusSize, -1);
         m8O = m8O + incrStatic;
     }
-    hc8O[n8O][0] = old_6A[0];
-    hc8O[n8O][1] = old_6A[1];
-    hc8O[n8O][2] = old_6A[2];
-    hc8O[n8O][3] = old_6A[3];
-    hc8O[n8O][4] = old_6A[4];
-    hc8O[n8O][5] = old_6A[5];
-    hc8O[n8O][6] = final_part2;
-    hc8O[n8O][7] = final_part1;
+    hc8O[n8O][0] = (*array)[0];
+    hc8O[n8O][1] = (*array)[1];
+    hc8O[n8O][2] = (*array)[2];
+    hc8O[n8O][3] = (*array)[3];
+    hc8O[n8O][4] = (*array)[4];
+    hc8O[n8O][5] = (*array)[5];
+    hc8O[n8O][6] = (*array)[6];
+    hc8O[n8O][7] = (*array)[7];
 
     for (int i = 0; i < 8; ++i) {
         s8O[hc8O[n8O][i]] = 'B';
