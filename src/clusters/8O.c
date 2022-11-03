@@ -21,7 +21,6 @@ void Clusters_Get8O() {
                     if(overlap_6A_4A_8O(&array, first_6A_cluster, first_4A_cluster,second_4A_cluster) == 1){
                         if(check_unique_8O(&array) == 0){
                             //printf("%i %i %i %i %i %i %i %i\n", array[0], array[1], array[2], array[3],array[4], array[5], array[6], array[7]);
-                            printf("%i %i \n", first_6A_id,n8O);
                             add_8O(&array);
                         }
                     }

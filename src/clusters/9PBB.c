@@ -13,7 +13,6 @@
 */
 
     void Clusters_Get9PBB() {
-        printf("boop\n");
     for (int old_8PAB_id = 0; old_8PAB_id < n8PAB; ++old_8PAB_id) {
         int *old_8PAB_cluster = hc8PAB[old_8PAB_id];
         int clust_6Z[8]; 
@@ -38,7 +37,6 @@
         for (int new_3_id = 0; new_3_id < nsp3a; ++new_3_id ){ //iterate over all sp3a rings
             int *new_3_cluster = hcsp3a[new_3_id];
             if(nring_in_cluster(old_8PAB_cluster, new_3_cluster, 9) == 2){
-                printf("boopl\n");
                 if(nring_bonded_nbonded(bonded_id, nbonded_id, new_3_cluster) == 2){ //two particles in ring are in 6Z
                 int bond_counter = check_ring_bonds(new_3_cluster, arr_6Z);
                     if (bond_counter == 9){

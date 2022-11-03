@@ -106,7 +106,6 @@ int check_unique11PAA(const int *old_clust, int new_particle, int new_clust_size
         u = 0;
         for (int q = 0; q<new_clust_size; ++q){
             for (int r = 0; r<10; ++r){
-                //printf("%i %i\n", hc11PAA[old_11PAA_id][q],old_clust[r]);
                 if(hc11PAA[old_11PAA_id][q] == old_clust[r]){
                     u += 1;
                 }
