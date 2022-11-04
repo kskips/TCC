@@ -11,17 +11,27 @@
 
 void Clusters_Get8O() {
     int *array = malloc(8 * sizeof(int));
+    int u;
     for (int first_6A_id = 0; first_6A_id < nsp4c; ++first_6A_id) {
         int *first_6A_cluster = hcsp4c[first_6A_id];
         for(int first_4A_id = 0; first_4A_id < nsp3b; ++first_4A_id){
             int *first_4A_cluster = hcsp3b[first_4A_id];
-            for(int second_4A_id = first_4A_id; second_4A_id < nsp3b; ++second_4A_id){
-                int *second_4A_cluster = hcsp3b[second_4A_id];
-                if(overlap_4A_4A(first_4A_cluster, second_4A_cluster) == 1){
-                    if(overlap_6A_4A_8O(&array, first_6A_cluster, first_4A_cluster,second_4A_cluster) == 1){
-                        if(check_unique_8O(&array) == 0){
-                            //printf("%i %i %i %i %i %i %i %i\n", array[0], array[1], array[2], array[3],array[4], array[5], array[6], array[7]);
-                            add_8O(&array);
+            u = 0;
+            for(int i = 0; i < 4; ++i){
+                for(int j = 0; j < 4; ++j){
+                    if(first_6A_cluster[j] == first_4A_cluster[i]);
+                    u += 1;
+                }                
+            }
+            if(u ==3){
+                for(int second_4A_id = first_4A_id; second_4A_id < nsp3b; ++second_4A_id){
+                    int *second_4A_cluster = hcsp3b[second_4A_id];
+                    printf("%i %i %i\n", first_6A_id, first_4A_id, second_4A_id);
+                    if(overlap_4A_4A(first_4A_cluster, second_4A_cluster) == 1){
+                        if(overlap_6A_4A_8O(&array, first_6A_cluster, first_4A_cluster,second_4A_cluster) == 1){
+                            if(check_unique_8O(&array) == 0){
+                                add_8O(&array);
+                            }
                         }
                     }
                 }
@@ -59,7 +69,7 @@ int overlap_6A_4A_8O(int **array,const int *clust_6A,const int *clust_4A1,const 
             u = 0;
             for(int i = 0; i < 4; ++i){
                 v = 0;
-                for(int j = 0; j < 6; ++j){
+                 for(int j = 0; j < 6; ++j){
                     if(clust_4A2[i] == clust_6A[j]){
                         (*array)[u+3] = clust_4A2[i];
                         u += 1;
