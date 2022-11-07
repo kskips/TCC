@@ -1,7 +1,7 @@
 #include <globals.h>
 #include <tools.h>
 #include "12O.h"
-
+#include "11O.h"
 //!  A 12O is a made of two intersecting 6A clusters and 2 4A clusters
 // The two 6A clusters share 2 ring particles
 // two rings and one spindle of each 6A cluster are in a 4A cluster
@@ -9,65 +9,92 @@
 
 
 void Clusters_Get12O() {
+
+    int i,j,u,v,w;
+    int *array = malloc(12 * sizeof(int));
+    //get 6a
     for (int first_6A_id = 0; first_6A_id < nsp4c; ++first_6A_id) {
         int *first_6A_cluster = hcsp4c[first_6A_id];
         for (int second_6A_id = 0; second_6A_id < nsp4c; ++second_6A_id) {
             int *second_6A_cluster = hcsp4c[second_6A_id];
-                int *array = malloc(12 * sizeof(int));
-                if(overlap_6A_6A_12O(&array, first_6A_cluster, second_6A_cluster) == 1){ // the 2 6As share 2 particles
-                    //get_shared_6A_ring(); // get the 2 ring particles shared between the 6As
-                    for(int first_4A_id = 0; first_4A_id < nsp3b; ++first_4A_id){
-                        int *first_4A_cluster = hcsp3b[first_4A_id];
+            //6a share two particles
+            if(overlap_6A_6A_11O(&array, first_6A_cluster, second_6A_cluster)== 2){
+                //first 4a
+                for(int first_4A_id = 0; first_4A_id < nsp3b; ++first_4A_id){
+                    int *first_4A_cluster = hcsp3b[first_4A_id];
+                    if(overlap_4A_12O(first_4A_cluster, first_6A_cluster, second_6A_cluster) == 1){
+                        //printf("%i %i\n", array[0], array[1]);
+                        //second 4a
                         for(int second_4A_id = 0; second_4A_id < nsp3b; ++second_4A_id){
-                            int *second_4A_cluster = hcsp3b[second_4A_id];
-                                // 4as share 2 particles
-
-                                if(overlap_4A_4A(first_4A_cluster, second_4A_cluster) == 2){
-                                if(overlap_6A_6A_4A_4A(&array,first_6A_cluster, first_4A_cluster, second_6A_cluster, second_4A_cluster) == 1){
-                                    for(int third_4A_id = 0; third_4A_id < nsp3b; ++ third_4A_id){
+                        int *second_4A_cluster = hcsp3b[second_4A_id];
+                        if(first_4A_id != second_4A_id){
+                            
+                            if(overlap_4A_4A(first_4A_cluster, second_4A_cluster) == 1){
+                                if(overlap_4A_12O(second_4A_cluster, second_6A_cluster, first_6A_cluster)== 1){
+                                    int k = 0;
+                                //the two 4as do not share any particles with any other 4a
+                                for(int third_4A_id = 0; third_4A_id < nsp3b; ++third_4A_id){   
+                                    v = 0;
+                                    w = 0;
                                     int *third_4A_cluster = hcsp3b[third_4A_id];
-                                        for(int fourth_4A_id = 0; fourth_4A_id < nsp3b; ++ fourth_4A_id){
-                                            int *fourth_4A_cluster = hcsp3b[fourth_4A_id];
-                                            if(overlap_4A_4A(third_4A_cluster, fourth_4A_cluster) == 1){
-                                            if(overlap_4A_4A(third_4A_cluster, first_4A_cluster) != 4){
-                                            if(overlap_4A_4A(third_4A_cluster, second_4A_cluster) != 4){
-                                            if(overlap_4A_4A(fourth_4A_cluster, first_4A_cluster) != 4){
-                                            if(overlap_4A_4A(fourth_4A_cluster, second_4A_cluster) != 4){
-                                                
-                                                        if(overlap_6A_4A(first_6A_cluster, third_4A_cluster) == 3){
-                                                            if(overlap_6A_4A(second_6A_cluster, fourth_4A_cluster) == 3){
-                                                            if(overlap_4A_12O(third_4A_cluster, &array) ==1){
-                                                                if(overlap_4A_12O(fourth_4A_cluster, &array) ==1){ 
-                                                                    //printf("4A1 %i %i %i %i\n", first_4A_cluster[0],first_4A_cluster[1],
-                                                                    //first_4A_cluster[2], first_4A_cluster[3]);
-                                                                    //printf("4A2 %i %i %i %i\n", second_4A_cluster[0],second_4A_cluster[1],
-                                                                    //second_4A_cluster[2], second_4A_cluster[3]);
-                                                                    //printf("4A3 %i %i %i %i\n", third_4A_cluster[0],third_4A_cluster[1],
-                                                                    //third_4A_cluster[2], third_4A_cluster[3]);
-                                                                    //printf("4A4 %i %i %i %i\n", fourth_4A_cluster[0],fourth_4A_cluster[1],
-                                                                    //fourth_4A_cluster[2], fourth_4A_cluster[3]); 
-                                                                    //printf("boop\n");                                                                    
-                                                                        if(shared_4A(first_4A_cluster, second_4A_cluster, third_4A_cluster, fourth_4A_cluster) == 1){
-                                                                             
-                                                                            get_12O(&array, third_4A_cluster, fourth_4A_cluster,first_6A_cluster, second_6A_cluster);
-                                                                            if(check_unique_12O(&array) == 0){
-                                                                                //printf("%i %i %i %i %i %i %i %i %i %i %i %i\n",array[0], array[1],array[2],array[3],array[4],array[5],
-                                                                                //array[6], array[7],array[8],array[9],array[10],array[11]);
-                                                                                //printf("boop\n");
-                                                                                printf("%i \n", n12O);
-                                                                                add_12O(&array);
-                                                                                }                                                         
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
+                                    u = 0;
+                                    //third 4a shares 2 particles with the shared 6a particles
+                                    for(i = 0; i < 4; ++i){
+                                        if(array[0] == third_4A_cluster[i] || array[1] == third_4A_cluster[i]){
+                                            u +=1;
                                         }
                                     }
+                                    if(u == 2){
+                                        u = 0;
+                                        for(i = 0; i < 4; ++i){
+                                            for(j = 0; j < 4; ++j){
+                                                if(third_4A_cluster[i] == second_4A_cluster[j]){
+                                                    v += 1;
+                                                }
+                                            if(third_4A_cluster[i]== first_4A_cluster[j]){
+                                                    w +=1;
+                                                }
+                                            }                                            
+                                        }
+                                    }
+                                    if(v != 0 && w != 0){
+                                        k += 1;
+                                    }
+                                }
+                                
+                                if(k == 0){
+                                    array[2] = first_4A_cluster[0];
+                                    array[3] = first_4A_cluster[1];
+                                    array[4] = first_4A_cluster[2];
+                                    array[5] = first_4A_cluster[3];
+
+                                    array[6] = second_4A_cluster[0];
+                                    array[7] = second_4A_cluster[1];
+                                    array[8] = second_4A_cluster[2];
+                                    array[9] = second_4A_cluster[3];     
+                                    for(i = 0; i < 6; ++i){
+                                        u = 0;
+                                        v = 0;
+                                        for(j = 0; j < 10; ++j){
+                                            if(array[j] == first_6A_cluster[i]){
+                                                u +=1;
+                                            }
+                                            if(array[j] == second_6A_cluster[i]){
+                                                v +=1;
+                                            }
+                                        }
+                                        if(u == 0){
+                                            array[10] = first_6A_cluster[i];
+                                        }
+                                        if(v == 0){
+                                            array[11] = second_6A_cluster[i];
+                                        }
+                                    }                                       
+
+                                    if(check_unique_12O(&array) == 0){                                
+                                        add_12O(&array);
+                                    }
+                                }
                                 }
                             }
                         }
@@ -77,19 +104,22 @@ void Clusters_Get12O() {
         }
     }
 }
+}
 
-
-
-int overlap_4A_12O(int *clust_4A, int **array){
-    int a = 0;
+int overlap_4A_12O(int *clust_4A, int *clust_6A1, int *clust_6A2){
+    int u = 0;
+    int v = 0;
     for(int i = 0; i < 4; ++i){
-        for(int x = 0; x < 2; ++x){
-            if (clust_4A[i] == (*array)[x] ){ 
-                a += 1;                
+        for(int j = 0; j < 6; ++j){
+            if(clust_4A[i] == clust_6A1[j]){
+                u +=1;
+                }
+            if(clust_4A[i] == clust_6A2[j]){
+                v +=1;
             }
         }
     }
-    if(a == 0){
+    if(v == 0 && u == 3){
         return 1;
     }
     else{
@@ -343,16 +373,18 @@ int check_unique_12O(int **new_12O_cluster){
         u = 0;
         for (int r = 0; r < 12; ++r){
             for (int q = 0; q < 12; ++q){
-                if(hc12O[old_12O_id][r] == (*new_12O_cluster)[q]){
+                if(hc12O[old_12O_id][q] == (*new_12O_cluster)[r]){
                     u += 1;
                 }
             }
 
+        }  
+        if(u >12){
+            printf("boop\n");
+        }  
+        if(u == 12){
+            return 1;           
         }
-    
-    if(u == 12){
-        return 1;           
-    }
     }
     return 0;
 }

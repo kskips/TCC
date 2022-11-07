@@ -10,52 +10,65 @@
 
 
 void Clusters_Get11O() {
-    int final_part1;
-    int final_part2, shared_spindle, nshared_spindle1, nshared_spindle2;
-    int count1;
-    int count2;
+
+    int i,j,u,v;
     int *array = malloc(11 * sizeof(int));
+    //get 6a
     for (int first_6A_id = 0; first_6A_id < nsp4c; ++first_6A_id) {
         int *first_6A_cluster = hcsp4c[first_6A_id];
         for (int second_6A_id = 0; second_6A_id < nsp4c; ++second_6A_id) {
             int *second_6A_cluster = hcsp4c[second_6A_id];
-            //6a share one spindle
+            //6a share three particles
             if(overlap_6A_6A_11O(&array, first_6A_cluster, second_6A_cluster)== 1){
                 for(int first_4A_id = 0; first_4A_id < nsp3b; ++first_4A_id){
                     int *first_4A_cluster = hcsp3b[first_4A_id];
-                            for(int second_4A_id = 0; second_4A_id < nsp3b; ++second_4A_id){
-                                int *second_4A_cluster = hcsp3b[second_4A_id];
-                                    if(overlap_4A_4A(first_4A_cluster, second_4A_cluster) == 1){
-                                        
-                                    if(overlap_6A_4A_11O(&array, first_4A_cluster, second_4A_cluster) == 1){
-                                        
-                                        //no overlap between first 6a and second 4a
-                                        //if(overlap_6A_4A_11O(&array, first_6A_cluster, second_4A_cluster) == 1){
-                                            //4as share no particles
-                                            
-                                            for(int i = 0; i < 4; ++i){
-                                                count1 = 0;
-                                                count2 = 0;
-                                                for(int j = 0; j < 9; ++j){
-                                                    if(array[j] == first_4A_cluster[i]){
-                                                        count1 +=1;
-                                                    }
-                                                    if(array[j] == second_4A_cluster[i]){
-                                                        count2 +=1;
-                                                    }
+                    u = 0;
+                    v = 0;
+                    //first 6a shares 3 particles with 1st 4a, none of which are shares with the 2nd 6a
+                    for(i = 0; i < 4; ++i){
+                        for(j = 0; j < 6; ++j){
+                                if(first_4A_cluster[i] == second_6A_cluster[j]){
+                                    u +=1;
+                                }
+                            if(first_4A_cluster[i] == first_6A_cluster[j]){
+                                v +=1;
+                            }
+                        }
+                    }
+                    if(u == 0 && v == 3){
+                        //second 4a
+                        for(int second_4A_id = 0; second_4A_id < nsp3b; ++second_4A_id){
+                        int *second_4A_cluster = hcsp3b[second_4A_id];
+                        if(first_4A_id != second_4A_id){
+                            
+                            if(overlap_4A_4A(first_4A_cluster, second_4A_cluster) == 1){
+                                u = 0;
+                                v = 0;
+                                if(u ==0 && v == 0){
+                                    u = 0;
+                                    v = 0;
+                                    for(i = 0; i < 4; ++i){
+                                        for(j = 0; j < 6; ++j){
+                                                if(second_4A_cluster[i] == first_6A_cluster[j]){
+                                                    u +=1;
                                                 }
-                                                if(count1 == 0){
-                                                    final_part1 = first_4A_cluster[i];
-                                                }
-                                                if(count2 == 0){
-                                                    final_part2 = second_4A_cluster[i];
-                                                }
+                                            if(second_4A_cluster[i] == second_6A_cluster[j]){
+                                                v +=1;
                                             }
-                                            
-                                            array[9] = final_part1;
-                                            array[10] = final_part2;
-                                            if(check_unique_11O(&array) == 0){                                
-                                                add_11O(&array);
+                                        }
+                                    }
+                                    if(u == 0 && v == 3){
+                                        array[3] = first_4A_cluster[0];
+                                        array[4] = first_4A_cluster[1];
+                                        array[5] = first_4A_cluster[2];
+                                        array[6] = first_4A_cluster[3];
+
+                                        array[7] = second_4A_cluster[0];
+                                        array[8] = second_4A_cluster[1];
+                                        array[9] = second_4A_cluster[2];
+                                        array[10] = second_4A_cluster[3];
+                                        if(check_unique_11O(&array) == 0){                                
+                                            add_11O(&array);
                                             }
                                         }
                                     }
@@ -65,6 +78,9 @@ void Clusters_Get11O() {
                     }
                 }
             }
+        }
+    }
+}
 
 int overlap_6A_4A_11O(int **array, int *clust_4A1, int *clust_4A2){
     int a = 0;
@@ -141,6 +157,9 @@ int overlap_6A_6A_11O(int **array, int *clust_6A1, int *clust_6A2){
     if(a == 3){
         return 1;
     }
+    if(a == 2){
+        return 2;
+    }    
     else{
         return 0;
     }

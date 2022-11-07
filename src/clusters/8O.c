@@ -18,15 +18,17 @@ void Clusters_Get8O() {
             int *first_4A_cluster = hcsp3b[first_4A_id];
             u = 0;
             for(int i = 0; i < 4; ++i){
-                for(int j = 0; j < 4; ++j){
-                    if(first_6A_cluster[j] == first_4A_cluster[i]);
+                for(int j = 0; j < 6; ++j){
+                    if(first_6A_cluster[j] == first_4A_cluster[i]){
                     u += 1;
+                }
                 }                
             }
-            if(u ==3){
+            //printf("%i\n", u);
+            if(u == 3){
                 for(int second_4A_id = first_4A_id; second_4A_id < nsp3b; ++second_4A_id){
                     int *second_4A_cluster = hcsp3b[second_4A_id];
-                    printf("%i %i %i\n", first_6A_id, first_4A_id, second_4A_id);
+                    //printf("%i %i %i\n", first_6A_id, first_4A_id, second_4A_id);
                     if(overlap_4A_4A(first_4A_cluster, second_4A_cluster) == 1){
                         if(overlap_6A_4A_8O(&array, first_6A_cluster, first_4A_cluster,second_4A_cluster) == 1){
                             if(check_unique_8O(&array) == 0){
