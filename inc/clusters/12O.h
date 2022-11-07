@@ -11,5 +11,5 @@ int shared_4A(int *third_4A_cluster, int *fourth_4A_cluster, int *first_4A_clust
 int overlap_4A_4A(int *clust_4A1, int *clust_4A2);
 int overlap_6A_6A_12O(int **array, int *clust_6A1, int *clust_6A2);
 int overlap_6A_6A_4A_4A(int **array,int *clust_6A1, int *clust_4A1, int *clust_6A2, int *clust_4A2);
-int overlap_4A_12O(int *clust_4A, int **array);
+int overlap_4A_12O(int *clust_4A, int *clust_6A1, int *clust_6A2);
 #endif
