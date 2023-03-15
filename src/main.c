@@ -13,6 +13,7 @@
 #include "7K.h"
 #include "7T.h"
 #include "8A.h"
+#include "8MW.h"
 #include "8B.h"
 #include "8K.h"
 #include "9A.h"
