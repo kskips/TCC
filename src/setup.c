@@ -156,7 +156,7 @@ void initialise_frame_variables() {
 
     for(int cluster_type = 0; cluster_type < num_cluster_types; cluster_type++) {
 
-        *(cluster_list_width[cluster_type]) = 1000;
+        *(cluster_list_width[cluster_type]) = 3000;
 
         // Cluster storage arrays
         *(cluster_list[cluster_type]) = malloc(*(cluster_list_width[cluster_type]) * sizeof(int *));
@@ -198,11 +198,11 @@ void free_frame_variables() {
 
     for(int cluster_type = 0; cluster_type < num_cluster_types; cluster_type++) {
         for (int i = 0; i < *(cluster_list_width[cluster_type]); i++) {
+            
             free((*cluster_list[cluster_type])[i]);
         }
         free(*raw_list[cluster_type]);
         free(*cluster_list[cluster_type]);
-
     }
 
     for (int particle_number = 0; particle_number < particles_in_current_frame; particle_number++) {
@@ -249,6 +249,7 @@ void analyse_cluster_dependencies() {
     if(doBCC9 == 1) dosp4b = dosp4c = 1;
     if(doFCC == 1) dosp3b = dosp3c = 1;
     if(doHCP == 1) dosp3c = 1;
+    if(do13SB == 1) do11SB = dosp3a = dosp3c = 1;
     if(do13S == 1) do12SB = dosp3c = 1;
     if(do13PBB == 1) do12PAB = do13PAB = 1;
     if(do13PAB == 1) do12PAA = do13PAA = dosp3a = 1;
@@ -283,6 +284,8 @@ void analyse_cluster_dependencies() {
     if(do10K == 1) do9K = 1;
     if(do10B == 1) dosp5c = do9B = 1;
     if(do10A == 1) dosp4b = 1;
+    if(do12O == 1) do8O = 1;
+    if(do14O == 1) do10O = 1;
     if(do10PAA == 1) do9PAA = 1;
     if(do10PBB == 1) do10PAA = do9PAB = 1;
     if(do10PAB ==1) do9PAA = do10PAA = dosp3a = 1;
@@ -295,6 +298,7 @@ void analyse_cluster_dependencies() {
     if(do9PAB ==1) do8PAA = do9PAA = dosp3a = 1;
     if(do9S ==1) do8B = 1;
     if(do8PAA == 1) do7T_a = 1;
+    if(do8MW == 1) dosp4a = 1;
     if(do8PBB == 1) do7PAB = 1;
     if(do8PAB == 1) do7T_a = do8PAA = dosp3a = 1;
     if(do7PAB == 1) do6Z = dosp3a = 1;
